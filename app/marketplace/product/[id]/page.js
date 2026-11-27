@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { doc, getDoc, collection, query, where, getDocs, limit } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { getCatalogProductById } from "@/app/marketplace/catalogProducts";
 import ProductActions from "../../../components/ProductActions";
 
 async function findProduct(id) {
@@ -46,7 +47,8 @@ async function findProduct(id) {
 export default async function ProductPage({ params }) {
   const { id } = await params;
 
-  const product = await findProduct(id);
+  const product =
+    getCatalogProductById(id) || await findProduct(id);
 
   if (!product) {
     notFound();
@@ -87,7 +89,14 @@ export default async function ProductPage({ params }) {
           </p>
 
           <div className="mt-10">
-            <ProductActions product={product} />
+            {product.isCatalogPreview ? (
+              <p className="max-w-xl rounded-2xl border border-[#3b3832] bg-[#24221e] px-5 py-4 text-sm leading-6 text-[#b9b2a7]">
+                Catalog preview. Pricing and purchase options will appear when
+                this piece is listed.
+              </p>
+            ) : (
+              <ProductActions product={product} />
+            )}
           </div>
 
           <p className="mt-8 text-xs uppercase tracking-[0.2em] text-[#777168]">

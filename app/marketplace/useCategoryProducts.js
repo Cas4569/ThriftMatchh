@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "@/lib/firebase";
+import { getCatalogProducts } from "./catalogProducts";
 
 export default function useCategoryProducts(category, subcategory) {
   const [products, setProducts] = useState([]);
@@ -26,10 +27,13 @@ export default function useCategoryProducts(category, subcategory) {
           where("subcategory", "==", subcategory)
         );
         const snapshot = await getDocs(productsQuery);
-        const loadedProducts = snapshot.docs.map((productDoc) => ({
+        const firestoreProducts = snapshot.docs.map((productDoc) => ({
           id: productDoc.id,
           ...productDoc.data(),
         }));
+        const loadedProducts = firestoreProducts.length
+          ? firestoreProducts
+          : getCatalogProducts(category, subcategory);
 
         if (active) {
           setProducts(loadedProducts);

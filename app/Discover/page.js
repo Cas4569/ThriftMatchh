@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { catalogProducts } from "@/app/marketplace/catalogProducts";
 
 export default function Discover() {
   const [feed, setFeed] = useState([]);
@@ -14,10 +15,13 @@ export default function Discover() {
       try {
         const snapshot = await getDocs(collection(db, "products"));
 
-        const products = snapshot.docs.map((productSnapshot) => ({
+        const firestoreProducts = snapshot.docs.map((productSnapshot) => ({
           id: productSnapshot.id,
           ...productSnapshot.data(),
         }));
+        const products = firestoreProducts.length
+          ? firestoreProducts
+          : [...catalogProducts];
 
         for (let index = products.length - 1; index > 0; index -= 1) {
           const randomIndex = Math.floor(Math.random() * (index + 1));
@@ -197,7 +201,7 @@ export default function Discover() {
                 <div className="p-7">
 
                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#9A6051]">
-                    {item.category || item.subcategory || "Fashion"}
+                    {item.subcategory || item.category || "Fashion"}
                   </p>
 
                   <h2 className="mt-3 text-2xl font-black tracking-tight transition duration-300 group-hover:text-[#c48b7a]">
@@ -213,7 +217,9 @@ export default function Discover() {
                     </div>
 
                     <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#70544c]">
-                      ITEM VERIFIED ✔️
+                      {item.isCatalogPreview
+                        ? "CATALOG PREVIEW"
+                        : "ITEM VERIFIED ✔️"}
                     </span>
 
                   </div>
@@ -221,7 +227,7 @@ export default function Discover() {
                   <div className="mt-5 flex items-center justify-between gap-4">
 
                     <p className="text-xl font-black text-[#b87967]">
-                      {item.price}
+                      {item.price || "Preview item"}
                     </p>
 
                     <span className="rounded-full border border-[#59352f] px-5 py-2.5 text-sm font-bold text-[#b87967] transition duration-300 group-hover:border-[#9A6051] group-hover:bg-[#3b211c] group-hover:text-[#e0b0a1] group-hover:shadow-[0_0_20px_rgba(154,96,81,0.18)]">

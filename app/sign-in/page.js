@@ -310,6 +310,15 @@ export default function SignIn() {
         );
       }
 
+      else if (
+        err?.code ===
+        "auth/configuration-not-found"
+      ) {
+        setError(
+          "Firebase Authentication isn't configured for this project yet. Check that Authentication is set up and this sign-in method is enabled in Firebase Console."
+        );
+      }
+
       else {
         setError(
           err?.message ||
@@ -379,6 +388,15 @@ export default function SignIn() {
       ) {
         setError(
           "Too many authentication attempts. Please wait a little and try again."
+        );
+      }
+
+      else if (
+        err?.code ===
+        "auth/configuration-not-found"
+      ) {
+        setError(
+          "Firebase Authentication isn't configured for this project yet. Enable Google under Firebase Console → Authentication → Sign-in method."
         );
       }
 

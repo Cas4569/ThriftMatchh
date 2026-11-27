@@ -174,7 +174,7 @@ export default function MenswearAccessories() {
                   </h2>
 
                   <p className="shrink-0 text-lg font-black text-[#c6a15b]">
-                    {product.price}
+                    {product.price || "Preview item"}
                   </p>
 
                 </div>
@@ -189,7 +189,7 @@ export default function MenswearAccessories() {
                   </div>
 
                   <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#76518b]">
-                    ITEM VERIFIED ✔️
+                    {product.isCatalogPreview ? "CATALOG PREVIEW" : "ITEM VERIFIED ✔️"}
                   </span>
 
                 </div>

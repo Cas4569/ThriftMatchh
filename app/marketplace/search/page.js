@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { catalogProducts } from "@/app/marketplace/catalogProducts";
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,9 @@ function SearchResults() {
           })
         );
 
-        setProducts(allProducts);
+        setProducts(
+          allProducts.length ? allProducts : catalogProducts
+        );
       } catch (loadError) {
         console.error(
           "SEARCH PRODUCT LOAD ERROR:",

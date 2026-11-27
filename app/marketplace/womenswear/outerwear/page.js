@@ -172,7 +172,7 @@ export default function WomenswearOuterwear() {
                   </div>
 
                   <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#76518b]">
-                    ITEM VERIFIED ✔️
+                    {product.isCatalogPreview ? "CATALOG PREVIEW" : "ITEM VERIFIED ✔️"}
                   </span>
 
                 </div>
@@ -181,7 +181,7 @@ export default function WomenswearOuterwear() {
                 <div className="mt-5 flex items-center justify-between gap-4">
 
                   <p className="text-xl font-black text-[#f09acb]">
-                    {product.price}
+                    {product.price || "Preview item"}
                   </p>
 
                   <a
