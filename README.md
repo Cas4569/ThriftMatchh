@@ -31,6 +31,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
+### Firebase client configuration
+
+The app's browser-side Firebase services require these environment variables at
+build time:
+
+- `NEXT_PUBLIC_FIREBASE_API_KEY`
+- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+- `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+- `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
+- `NEXT_PUBLIC_FIREBASE_APP_ID`
+
+Copy their values from **Firebase Console → Project settings → General → Your
+apps → SDK setup and configuration**. Add them in Vercel under **Project
+Settings → Environment Variables** for each environment you deploy (Production
+and Preview as applicable), then redeploy. These are Firebase web-app
+configuration values, not service-account credentials.
+
 ### Firebase Admin credentials
 
 Seller applications are written to Firestore by the server. For Vercel, add the
