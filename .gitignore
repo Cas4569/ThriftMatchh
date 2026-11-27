@@ -1,0 +1,32 @@
+# ThriftMatch - Code Review Findings Exclusion
+
+# Service account credentials
+thriftmatch-127c8-firebase-adminsdk-fbsvc-f6d8375553.json
+
+# Code review findings (this file)
+CODE_REVIEW_FINDINGS.md
+*.review.md
+*.findings.md
+/.claude   
+/firestore.rules
+/firebase.json
+# Build output
+.next/
+dist/
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env.local
+.env*.local
+.env
+
+# IDE
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
